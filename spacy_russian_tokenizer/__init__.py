@@ -14,9 +14,9 @@ class RussianTokenizer(object):
         self.token_merge = nlp.vocab.strings['pattern']
         self.sentence_terminal = nlp.vocab.strings['sentence_terminal']
         if merge_patterns:
-            self.matcher.add(self.token_merge, None, *merge_patterns)
+            self.matcher.add(self.token_merge, None, merge_patterns)
         if terminal_patterns:
-            self.matcher.add(self.sentence_terminal, None, *terminal_patterns)
+            self.matcher.add(self.sentence_terminal, None, terminal_patterns)
 
     def __call__(self, doc):
         spans = []
