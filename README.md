@@ -38,8 +38,11 @@ text = "Не ветер, а какой-то ураган!"
 nlp = Russian()
 doc = nlp(text)
 russian_tokenizer = RussianTokenizer(nlp, MERGE_PATTERNS)
-nlp.add_pipe(russian_tokenizer, name='russian_tokenizer')
+
 doc = nlp(text)
+with doc.retokenize() as retokenizer:
+    for match_id, start, end in russian_tokenizer.matcher(doc):
+        retokenizer.merge(doc[start:end])
 print([token.text for token in doc])
 # ['Не', 'ветер', ',', 'а', 'какой-то', 'ураган', '!']
 # Notice that word "какой-то" remains a single token. 
@@ -52,8 +55,11 @@ text = "«Фобос-Грунт» — российская автоматиче�
 nlp = Russian()
 doc = nlp(text)
 russian_tokenizer = RussianTokenizer(nlp, MERGE_PATTERNS + SYNTAGRUS_RARE_CASES)
-nlp.add_pipe(russian_tokenizer, name='russian_tokenizer')
+
 doc = nlp(text)
+with doc.retokenize() as retokenizer:
+    for match_id, start, end in russian_tokenizer.matcher(doc):
+        retokenizer.merge(doc[start:end])
 print([token.text for token in doc])
 # ['«', 'Фобос-Грунт', '»', '—', 'российская', 'автоматическая', 'межпланетная', 'станция', '(', 'АМС', ')', '.']
 ```
