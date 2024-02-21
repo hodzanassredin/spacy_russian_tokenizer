@@ -7,9 +7,9 @@ model, because in most training datasets (i.e. SynTagRus) tokens are split or me
 reduces model's quality.
 Example of default behaviour:
 ```python
-from spacy.lang.ru import Russian
+import spacy
 text = "Не ветер, а какой-то ураган!"
-nlp = Russian()
+nlp = spacy.load("ru_core_news_lg")
 doc = nlp(text)
 print([token.text for token in doc])
 # ['Не', 'ветер', ',', 'а', 'какой', '-', 'то', 'ураган', '!']
@@ -32,10 +32,10 @@ SynTagRus vocabulary and [lemma dictionary](http://dict.ruslang.ru/freq.php) fro
 ## Usage
 Core patterns are collected in `MERGE_PATTERNS` variable.
 ```python
-from spacy.lang.ru import Russian
+import spacy
 from spacy_russian_tokenizer import RussianTokenizer, MERGE_PATTERNS
 text = "Не ветер, а какой-то ураган!"
-nlp = Russian()
+nlp = spacy.load("ru_core_news_lg")
 doc = nlp(text)
 russian_tokenizer = RussianTokenizer(nlp, MERGE_PATTERNS)
 
@@ -49,10 +49,10 @@ print([token.text for token in doc])
 ```
 One can also add patterns, found in SynTagRus but absent in National Russian Language Corpus
 ```python
-from spacy.lang.ru import Russian
+import spacy
 from spacy_russian_tokenizer import RussianTokenizer, MERGE_PATTERNS, SYNTAGRUS_RARE_CASES
 text = "«Фобос-Грунт» — российская автоматическая межпланетная станция (АМС)."
-nlp = Russian()
+nlp = spacy.load("ru_core_news_lg")
 doc = nlp(text)
 russian_tokenizer = RussianTokenizer(nlp, MERGE_PATTERNS + SYNTAGRUS_RARE_CASES)
 
